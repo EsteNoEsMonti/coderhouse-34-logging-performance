@@ -5,28 +5,34 @@ import { Server as socketIOServer } from "socket.io";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
-//root
+// root
 import { apiRouter } from "../routers/api/router.api.js";
 import { viewsRouter } from "../routers/web/router.views.js";
 
-//config
+// config
 import { PORT } from "../config/config.js";
 import { COOKIE_KEY } from "../config/config.js";
 
-//mid
+// mid
 import { errorFn } from "../mid/error.js";
 import { socketFn } from "../mid/soketio.rt.js";
 import { socketChat } from "../mid/socketio.chat.js";
+
 //DDBB
 import { conectar } from "../dao/mongoose/mongoose.js";
 
-//Auth
+// Auth
 import session from "../mid/session.js";
 import { passportInitialize } from "../mid/authentication.js";
+
+// Logger
+import { logger } from "../mid/logger.js";
 
 const app = express();
 
 await conectar();
+
+app.use(logger)
 
 app.use(cors({ origin: "*" }));
 app.use("/public", express.static("public"));
@@ -41,6 +47,7 @@ app.set("view engine", "handlebars");
 app.use("/api", apiRouter);
 app.use("/", viewsRouter);
 app.use(errorFn);
+
 
 const httpServer = app.listen(PORT, () => {
   console.log('🌙 ', `App listening on port ${PORT}`);
