@@ -2,7 +2,7 @@ import express from "express";
 import { Router } from "express";
 
 import { postProductController } from "../../controllers/api/products/controller.post.products.js";
-import { getMockingProducts, getMockingProductsWithFakerJS, getProductsController } from "../../controllers/api/products/controller.getall.products.js";
+import { getProductsController } from "../../controllers/api/products/controller.getall.products.js";
 import { getProductCodeController } from "../../controllers/api/products/controller.getbycode.products.js";
 import { getProductIdController } from "../../controllers/api/products/controllet.getany.products.js";
 import { updateProduct } from "../../controllers/api/products/controllet.put.products.js";
@@ -32,7 +32,3 @@ appProducts.put("/:pid", updateProduct);
 
 // eliminar un producto
 appProducts.delete("/:pid", deleteProduct);
-
-// mocking de productos
-appProducts.get("/mockingproducts", getMockingProducts);
-appProducts.get("/mockingproductswhitfakesjs", getMockingProductsWithFakerJS);
